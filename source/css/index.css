@@ -1,0 +1,117 @@
+/*for index.css
+* 2017-08-20 init version.
+*/
+html {
+  height: 100%;
+  -ms-touch-action: none;
+}
+body {
+  background: #ffffff ;
+  max-width: 640px;
+  margin: 0 auto;
+  /*height: 100%;*/
+}
+a {
+  display: block;
+  text-decoration: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-touch-callout: none;
+  color: #000000;
+}
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+i {
+  font-style: normal;
+}
+/*hscroll*/
+.swipe {
+  overflow: hidden;
+  visibility: hidden;
+  position: relative;
+  background: gray;
+}
+.swipe .swipe-wrap {
+  overflow: hidden;
+  position: relative;
+}
+.swipe .swipe-wrap > div {
+  float: left;
+  width: 100%;
+  position: relative;
+}
+/*轮播位背景图*/
+.swipe-bg {
+  width: 100%;
+  padding-bottom: 100%;
+  height: 0;
+  background: url(../imgs/home_slider_bg.png) no-repeat center;
+  background-size: cover;
+}
+.swipe-bg .slider-top-title {
+  position: absolute;
+  top: 0;
+  text-align: center;
+  display: inline;
+  width: 100%;
+  margin-top: 2.5rem;
+  line-height: 16px;
+  font-size: 16px;
+  color: white;
+  -webkit-transform: translate(0, -50%);
+  -moz-transform: translate(0, -50%);
+  -ms-transform: translate(0, -50%);
+  -o-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+}
+.swipe-bg .slider-top-title span {
+  display: block;
+  font-size: 1.5rem;
+}
+.swipe-bg .slider-top-title i {
+  display: block;
+  font-size: 1.2rem;
+  margin-top: 0.5rem;
+}
+.swipe-bg .slider-lines {
+  background: rgba(255, 255, 255, 0.35);
+  height: 1px;
+  line-height: 1px;
+  margin: -0.833333rem 0.8333rem 0 0.8333rem;
+}
+.swipe-bg .slider-lines div#slider-select {
+  width: 0%;
+  height: 1px;
+  line-height: 1px;
+  background: white;
+}
+.swipe-bg .slider-item {
+  padding: 5rem 0.8333rem 1.6667rem;
+  box-sizing: border-box;
+  position: relative;
+}
+.swipe-bg .slider-item .slider-img {
+  width: 100%;
+  height: 0;
+  padding-bottom: 120%;
+}
+.clearfix:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+img[src=""] {
+  opacity: 0;
+  display: none !important;
+}
+section#time {
+  height: 10rem;
+  line-height: 10rem;
+  text-align: center;
+  background: #92C0F0;
+  font-size: 2rem;
+  color: white;
+}
