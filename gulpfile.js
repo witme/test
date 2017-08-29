@@ -13,9 +13,13 @@ var imagemin = require('gulp-imagemin'); //图片压缩
 	minifyCss = require('gulp-clean-css');
 var gulpif = require('gulp-if');
 var less = require('gulp-less');
+var base64 = require('gulp-base64');
+var LessPluginFunctions = require('less-plugin-functions');
+var lessFunctions = new LessPluginFunctions();
 var replace = require('gulp-replace');
 var htmlmin = require('gulp-html-minify');
 var filter = require('gulp-filter');
+var gulpCopy = require('gulp-copy');
 
 var f = filter(['**/*.js', '**/*.css'], {restore: true});
 /*
@@ -24,8 +28,14 @@ var f = filter(['**/*.js', '**/*.css'], {restore: true});
  */
 gulp.task('css', function(){
 	return gulp.src('source/css/*.less')
-		.pipe(less())
-		
+		.pipe(less({
+      		plugins: [lessFunctions]
+    	}))
+		.pipe(base64({
+			baseDir: 'source/css/', 
+			extensions: ['png', 'jpg', 'jpeg', 'gif'], 
+			maxImageSize: 20 * 1024,
+		}))
 		.pipe( gulp.dest('source/css/'));
 });
 
@@ -69,7 +79,7 @@ gulp.task('dist', function () {
 			.pipe(revReplace())
 			.pipe( gulpif('*.html', htmlmin()) ) //不会清除引号
 			//换成绝对路径
-			.pipe(replace(/(src=["']js)/g,function ($0) {
+			/*.pipe(replace(/(src=["']js)/g,function ($0) {
 
 		    	if ($0.indexOf('src="js') != -1 || $0.indexOf("src='js")!= -1) {    			    		
 		            //
@@ -77,7 +87,7 @@ gulp.task('dist', function () {
 		        } else{
 		        	return $0;
 		        }        	
-    		}))
+    		}))*/
     		.pipe(replace(/(href=["']css)/g,function ($0) {    			
 		    	if ($0.indexOf("href='css") != -1 || $0.indexOf('href="css') != -1){
 		        	return $0;
@@ -88,6 +98,12 @@ gulp.task('dist', function () {
 			.pipe(gulp.dest('dist'));
 
 	});
+});
+
+gulp.task('copy',  function() {
+  return gulp.src('dist/**/*')
+  			//.pipe(gulpCopy('./', {}));
+    		.pipe(gulp.dest('./'))
 });
 
 /*
@@ -104,5 +120,5 @@ gulp.task('build', function () {
  *	  
  */
 gulp.task('default', function () {
-	console.warn('please use: \n [gulp dist]\n [gulp test]\n [gulp build]');
+	console.warn('please use: \n [gulp dist]\n [gulp test]\n [gulp copy]');
 });
