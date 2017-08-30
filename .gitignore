@@ -2,3 +2,4 @@
 **/pics/*.png
 **/pics/*.gif
 **/node_modules
+**/.DS_Store
