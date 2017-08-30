@@ -115,3 +115,13 @@ section#time {
   font-size: 2rem;
   color: white;
 }
+.beian {
+  font-size: 1.2rem;
+  text-align: center;
+  line-height: 1.5rem;
+  padding: .4rem 0 0;
+}
+.beian a {
+  font-size: 0.8rem;
+  color: #ccc;
+}
