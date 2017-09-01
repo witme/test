@@ -1,0 +1,14 @@
+// forever/dev_forever.json
+{
+	// Comments are supported
+    "uid": "app",
+    "colors": true,
+    "append": true,
+    "watch": true,
+    //js目录
+    "sourceDir": "./",
+    "script": "index.js",
+    "logFile": "/home/data/log/app.log",
+    "outFile": "/home/data/log/app.out.log",
+    "errFile": "/home/data/log/app.err.log"
+}
