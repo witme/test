@@ -72,84 +72,97 @@
   <script>
 
     $(function() {
-      $('#upButton').on('click', function() {
-        $('#upInput').on('change', function(e) {
 
-          //提交表单
-          processUpload();
-        });
+      function disableUI() {
+        $('#upButton').addClass('disabled');
+        $('.mask').removeClass('hide').addClass('show');
+      }
+      function enableUI() {
+        $('#upButton').removeClass('disabled');
+        $('.mask').removeClass('show').addClass('hide');
+      }
 
-        $('#upInput').click();
-
-        function processUpload() {
-          var file = document.getElementById('upInput').files[0];
-          if(file == undefined || file == null){
-              return; //在弹出的文件对话框，用户点击取消. 如果用户上传同一个文件名，也不会触发
-          }
-          //校验扩展名
-          if(!/\.(jpg|png|bmp|jpeg|gif)$/.test(file.name.toLocaleLowerCase()))
-          {
-              //alert("jpg|png|bmp|jpeg|gif中的一种,请重新上传！");
-              alert('请选择图片或视频,请重新上传！');
-              return false;
-          }
-          var uploadUrl = "/uploadImg";
-          var fd = new FormData();
-          fd.append('upload', file);
-          $('#upInput').val(''); //clear
-
-          $('#upButton').addClass('disabled');
-          $('.mask').removeClass('hide').addClass('show');
-
-          //本地预览
-          //var f = e.target.files[0];
-          var src = window.URL.createObjectURL(file);
-          $('.preview img').attr('src', src);
-
-          var ajax = $.ajax({
-               type: 'POST',
-               url: uploadUrl,
-               data: fd,
-               contentType:false,
-               processData: false,
-               success: function(res){
-                   console.log(res);
-                   $('#upButton').removeClass('disabled');
-                   $('.mask').removeClass('show').addClass('hide');
-               },
-               error: function(){
-                 $('#upButton').removeClass('disabled');
-                 $('.mask').removeClass('show').addClass('hide');
-               },
-               xhr: function(){
-                 var XMLHttpRequest = $.ajaxSettings.xhr();
-                //Upload progress
-                XMLHttpRequest.upload.addEventListener("progress", function(evt){
-                  if (evt.lengthComputable) {
-                    var percentComplete = evt.loaded / evt.total;
-                    //Do something with upload progress
-                    $('.loading-text').text('上传进度：' + parseInt(percentComplete * 100) + '%');
-                    console.log(percentComplete);
-                  }
-                }, false);
-                //Download progress
-                /*XMLHttpRequest.addEventListener("progress", function(evt){
-                  if (evt.lengthComputable) {
-                    var percentComplete = evt.loaded / evt.total;
-                    //Do something with download progress
-                  }
-                }, false);*/
-
-                return XMLHttpRequest;
-              },
-           });
-
-
-        }
-
-
+      $('#upInput').on('change', function(e) {
+        //提交表单
+        processUpload();
       });
 
+      $('#upButton').on('click', function() {
+        //triggle弹窗
+        $('#upInput').click();
+      });
+
+      function processUpload() {
+        var files = document.getElementById('upInput').files;
+        if(files == undefined || files == null){
+            return; //在弹出的文件对话框，用户点击取消. 如果用户上传同一个文件名，也不会触发
+        }
+        var fd = new FormData();
+        var fileArray=[].slice.call(files,0);//类数组转换为数组
+        fileArray.forEach(function(file){
+            if( checkExt(file)){
+                fd.append("upload",file);//循环遍历把文件对象插到formData对象上
+            }
+        });
+
+        function checkExt(file) {
+            //校验扩展名
+            if(!/\.(jpg|png|bmp|jpeg|gif)$/.test(file && file.name.toLocaleLowerCase()))
+            {
+                //alert("jpg|png|bmp|jpeg|gif中的一种,请重新上传！");
+                //alert('请选择图片或视频,请重新上传！');
+                return false;
+            }
+            return true;
+        }
+
+        disableUI();
+
+        //本地预览
+        //var f = e.target.files[0];
+        var src = window.URL.createObjectURL(files[0]);
+        $('.preview img').attr('src', src);
+
+        var uploadUrl = "/uploadImg";
+        var ajax = $.ajax({
+             type: 'POST',
+             url: uploadUrl,
+             data: fd,
+             contentType:false,
+             processData: false,
+             success: function(res){
+                 console.log(res);
+                 enableUI();
+                 $('#upInput').val(''); //clear, file obj will be empty
+             },
+             error: function(){
+                 enableUI();
+                 $('#upInput').val(''); //remove, disable upload the same file.
+             },
+             xhr: function(){
+               var XMLHttpRequest = $.ajaxSettings.xhr();
+              //Upload progress
+              XMLHttpRequest.upload.addEventListener("progress", function(evt){
+                if (evt.lengthComputable) {
+                  var percentComplete = evt.loaded / evt.total;
+                  //Do something with upload progress
+                  $('.loading-text').text('上传进度：' + parseInt(percentComplete * 100) + '%');
+                  console.log(percentComplete);
+                }
+              }, false);
+              //Download progress
+              /*XMLHttpRequest.addEventListener("progress", function(evt){
+                if (evt.lengthComputable) {
+                  var percentComplete = evt.loaded / evt.total;
+                  //Do something with download progress
+                }
+              }, false);*/
+
+              return XMLHttpRequest;
+            },
+         });
+
+      }
     });
 
   </script>
