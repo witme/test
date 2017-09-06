@@ -18,7 +18,8 @@ let TMP_FOLDER = './tmp/';
 var FILE = {
 	//临时目录中的全路径名
 	getFullName: function(file) {
-		return file[1].path;
+		//return '/home/app/' + file[1].path; //须加.,此处为相对路径
+		return file[1].path; //须加.,此处为相对路径
 	},
 	//原始文件名,带扩展名
 	getFileName: function(file) {
@@ -27,8 +28,10 @@ var FILE = {
 	},
 	//
 	getTmpName: function(file) {
-		let fileName = file[1].path.split('\\');
-		return fileName[fileName.length -1];
+		//此处需要改正,linux下为左斜杠;win下为右斜杠
+		//let fileName = file[1].path.split('\\');
+		//return fileName[fileName.length -1];
+		return file[1].path.slice(4); //移除tmp/或tmp\\
 		//使用hash name容易重名
 		//return file[1].hash + '.png';
 	},
@@ -70,7 +73,7 @@ function uploadImg(req, res) {
 					let newPath = DEST_FOLDER + tmpName;
 
 					//console.log("fileFullName %s\t, fileName %\t, newPath %s\r\n", fileFullName, tmpName, newPath);
-
+console.log(fileFullName, newPath);
           fs.renameSync(fileFullName, newPath);
 		});
 
