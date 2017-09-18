@@ -1,3 +1,4 @@
+"use strict"
 let formidable = require("formidable"); //载入 formidable
 let fs = require('fs');
 var api = {};
