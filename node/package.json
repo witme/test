@@ -18,6 +18,7 @@
   },
   "devDependencies": {
     "express": "^4.15.4",
+    "gm": "^1.23.0",
     "gulp": "^3.9.1",
     "gulp-imagemin": "^3.3.0"
   }
