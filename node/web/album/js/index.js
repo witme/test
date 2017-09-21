@@ -7,7 +7,9 @@ $(function(){
             list.push({
                 imgThumb: item.imgThumb,
                 image: item.image,
-                caption: item.caption
+                caption: item.caption,
+                width: 1024,
+                height: 768,
             })
         }
         

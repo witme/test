@@ -91,7 +91,7 @@
       <div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
         {{#figures}}
         <figure itemprop="associatedMedia" itemscope itemtype22="http://schema.org/ImageObject">
-          <a href="{{image}}" itemprop="contentUrl" data-size="1024x768">
+          <a href="{{image}}" itemprop="contentUrl" data-size="{{width}}x{{height}}">
               <img src="{{imgThumb}}" itemprop="thumbnail" alt="Image description" />
           </a>
           <figcaption itemprop="caption description">{{caption}}</figcaption>
