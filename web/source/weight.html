@@ -25,28 +25,22 @@
 
 
           var data = [
-              [1, 4862.4],
-              [2, 5294.7],
-              [3, 5934.5],
-              [4, 7171.0],
-              [5, 8964.4],
-              [6, 10202.2],
-              [7, 11962.5],
-              [8, 14928.3],
-              [9, 16909.2],
-              [10, 18547.9],
-              [11, 21617.8],
-              [12, 26638.1],
-              [13, 34634.4],
-              [14, 46759.4],
-              [15, 58478.1],
-              [16, 67884.6],
-              [17, 74462.6],
-              [18, 79395.7]
+              [1, 2.84],
+              [2, 2.7],
+              [3, 2.5],
+              [4, 3.0],
+              [5, 4.4],
+              [6, 5.2],
+              [7, 6.5],
+              [8, 7.3],
+              [9, 8.2],
+              [10, 8.9],
+              [11, 8.2],
+
           ];
 
           // See https://github.com/ecomfe/echarts-stat
-          var myRegression = ecStat.regression('exponential', data);
+          var myRegression = ecStat.regression('exponential', data); //linear,polynomial,exponential
 
           myRegression.points.sort(function(a, b) {
               return a[0] - b[0];
@@ -54,9 +48,9 @@
 
           option = {
               title: {
-                  text: '1981 - 1998 gross domestic product GDP (trillion yuan)',
-                  subtext: 'By ecStat.regression',
-                  sublink: 'https://github.com/ecomfe/echarts-stat',
+                  text: '宝宝体重曲线',
+                  subtext: 'By xixiluo.cn',
+                  sublink: 'xixiluo.cn',
                   left: 'center'
               },
               tooltip: {
@@ -72,7 +66,7 @@
                           type: 'dashed'
                       }
                   },
-                  splitNumber: 20
+                  splitNumber: 12 //月份,先定义1岁内
               },
               yAxis: {
                   type: 'value',
