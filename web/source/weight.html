@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+ 	<meta charset="utf-8">
+  	<meta name="description" content="">
+	<meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+	<title>臭宝宝时光</title>
+	<link rel="stylesheet" href="css/main.css">
+  <!--绘图工具-->
+  <script src="js/echarts.min.js"></script>
+  <!--统计工具-->
+  <script src="js/ecStat.min.js"></script>
+  <script src="js/zepto-79af904615.js"></script>
+</head>
+<body>
+  <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+<div id="main"></div>
+<script type="text/javascript">
+        $(function() {
+          $('#main').css( {
+            width: $(window).width(),
+            height: $(window).width(),
+          });
+
+
+          var data = [
+              [1, 2.84],
+              [2, 2.7],
+              [3, 2.5],
+              [4.5, 3.0],
+              [5, 4.4],
+              [6, 5.2],
+              [7, 6.5],
+              [8, 7.3],
+              [9, 8.2],
+              [10, 8.9],
+              [11, 8.2],
+
+          ];
+          var data2 = [
+              [1.5, 1.84],
+              [2.5, 2.7],
+              [3.6, 3.5],
+              [4.5, 4.0],
+              [5.4, 4.4],
+              [6.3, 4.2],
+              [7.5, 6.5],
+              [8.5, 6.3],
+              [9.5, 7.2],
+              [10.5, 7.9],
+              [11, 9.2],
+
+          ];
+
+          // See https://github.com/ecomfe/echarts-stat
+          var myRegression = ecStat.regression('exponential', data); //linear,polynomial,exponential
+
+
+          myRegression.points.sort(function(a, b) {
+              return a[0] - b[0];
+          });
+
+
+
+          myRegression.expression = ""; //右上角不展示
+          myRegression.points.forEach(function(idx, item) {
+            idx[1] = idx[1].toFixed(2);
+          });
+
+
+          var myRegression2 = ecStat.regression('exponential', data2); //linear,polynomial,exponential
+          myRegression2.points.sort(function(a, b) {
+              return a[0] - b[0];
+          });
+
+          myRegression2.expression = ""; //右上角不展示
+          myRegression2.points.forEach(function(idx, item) {
+            idx[1] = idx[1].toFixed(2);
+          });
+
+          option = {
+              title: {
+                  text: '宝宝体重曲线',
+                  subtext: 'By xixiluo.cn',
+                  sublink: 'xixiluo.cn',
+                  left: 'center'
+              },
+              tooltip: {
+                  trigger: 'axis',
+                  axisPointer: {
+                      type: 'cross'
+                  }
+              },
+              xAxis: {
+                  type: 'value',
+                  splitLine: {
+                      lineStyle: {
+                          type: 'dashed'
+                      }
+                  },
+                  splitNumber: 12 //月份,先定义1岁内
+              },
+              yAxis: {
+                  type: 'value',
+                  splitLine: {
+                      lineStyle: {
+                          type: 'dashed'
+                      }
+                  }
+              },
+              series: [{
+                  name: '体重',
+                  type: 'scatter',
+                  label: {
+                      emphasis: {
+                          show: true,
+                          position: 'left',
+                          textStyle: {
+                              color: 'blue',
+                              fontSize: 16
+                          }
+                      }
+                  },
+                  data: data
+              },
+
+              {
+                  name: '实际2',
+                  type: 'line',
+                  showSymbol: false,
+                  smooth: true,
+                  data: myRegression2.points,
+                  markPoint: {
+                      itemStyle: {
+                          normal: {
+                              color: 'transparent'
+                          }
+                      },
+                      label: {
+                          normal: {
+                              show: true,
+                              position: 'left',
+                              formatter: myRegression2.expression,
+                              textStyle: {
+                                  color: '#555',
+                                  fontSize: 14
+                              }
+                          }
+                      },
+                      data: [{
+                          coord: myRegression2.points[myRegression.points.length - 1]
+                      }]
+                  }
+              },
+
+              {
+                  name: '实际',
+                  type: 'line',
+                  showSymbol: false,
+                  smooth: true,
+                  data: myRegression.points,
+                  markPoint: {
+                      itemStyle: {
+                          normal: {
+                              color: 'transparent'
+                          }
+                      },
+                      label: {
+                          normal: {
+                              show: true,
+                              position: 'left',
+                              formatter: myRegression.expression,
+                              textStyle: {
+                                  color: '#333',
+                                  fontSize: 14
+                              }
+                          }
+                      },
+                      data: [{
+                          coord: myRegression.points[myRegression.points.length - 1]
+                      }]
+                  }
+              }]
+          };
+
+          var chart = echarts.init(document.getElementById('main'));
+          chart.setOption(option);
+
+        });
+
+
+</script>
+
+<script src="js/lib/BDStatistics.js"></script>
+
+</body>
+</html>
