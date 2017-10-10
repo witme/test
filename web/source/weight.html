@@ -23,33 +23,52 @@
             height: $(window).width(),
           });
 
-
+        //实测
           var data = [
-              [1, 2.84],
-              [2, 2.7],
-              [3, 2.5],
-              [4.5, 3.0],
-              [5, 4.4],
-              [6, 5.2],
-              [7, 6.5],
-              [8, 7.3],
-              [9, 8.2],
-              [10, 8.9],
-              [11, 8.2],
+              [0, 2.8],
+              [2.9, 5.2],
+              [3, 5.2],
+              [4.1, 5.8],
+              [4.7, 6.2],
+              [7, 7.2],
+              [7.7, 7.3],
 
           ];
+          // 5.4 5.2kg
+          // 5.7 5.2kg
+          // 6.12 5.8
+          //7.1 6.2
+          //9.9 7.2
+          // 10.1 7.3
+
+
+
+
+
+          //下限
           var data2 = [
-              [1.5, 1.84],
-              [2.5, 2.7],
-              [3.6, 3.5],
-              [4.5, 4.0],
-              [5.4, 4.4],
-              [6.3, 4.2],
-              [7.5, 6.5],
-              [8.5, 6.3],
-              [9.5, 7.2],
-              [10.5, 7.9],
-              [11, 9.2],
+                [1, 2.5],
+                [2, 4.5],
+                [3, 5.5],
+                [4, 6.5],
+                [5, 7.5],
+                [6, 8.5],
+                [7, 9.5],
+                [8, 10.5],
+                [9, 11.5],
+
+          ];
+          //上限
+          var data3 = [
+                [1, 2.8],
+                [2, 4.8],
+                [3, 5.8],
+                [4, 6.8],
+                [5, 7.8],
+                [6, 8.8],
+                [7, 9.8],
+                [8, 10.8],
+                [9, 11.8],
 
           ];
 
@@ -61,21 +80,31 @@
               return a[0] - b[0];
           });
 
-
-
           myRegression.expression = ""; //右上角不展示
           myRegression.points.forEach(function(idx, item) {
             idx[1] = idx[1].toFixed(2);
           });
 
-
+          //2
           var myRegression2 = ecStat.regression('exponential', data2); //linear,polynomial,exponential
           myRegression2.points.sort(function(a, b) {
               return a[0] - b[0];
           });
 
+          
           myRegression2.expression = ""; //右上角不展示
           myRegression2.points.forEach(function(idx, item) {
+            idx[1] = idx[1].toFixed(2);
+          });
+            
+          //3
+          var myRegression3 = ecStat.regression('exponential', data3); //linear,polynomial,exponential
+          myRegression3.points.sort(function(a, b) {
+              return a[0] - b[0];
+          });
+
+          myRegression3.expression = ""; //右上角不展示
+          myRegression3.points.forEach(function(idx, item) {
             idx[1] = idx[1].toFixed(2);
           });
 
@@ -110,7 +139,7 @@
                   }
               },
               series: [{
-                  name: '体重',
+                  name: '实测',
                   type: 'scatter',
                   label: {
                       emphasis: {
@@ -126,7 +155,7 @@
               },
 
               {
-                  name: '实际2',
+                  name: '下限',
                   type: 'line',
                   showSymbol: false,
                   smooth: true,
@@ -149,13 +178,41 @@
                           }
                       },
                       data: [{
-                          coord: myRegression2.points[myRegression.points.length - 1]
+                          coord: myRegression2.points[myRegression2.points.length - 1]
+                      }]
+                  }
+              },
+              {
+                  name: '上限',
+                  type: 'line',
+                  showSymbol: false,
+                  smooth: true,
+                  data: myRegression3.points,
+                  markPoint: {
+                      itemStyle: {
+                          normal: {
+                              color: 'transparent'
+                          }
+                      },
+                      label: {
+                          normal: {
+                              show: true,
+                              position: 'left',
+                              formatter: myRegression3.expression,
+                              textStyle: {
+                                  color: '#555',
+                                  fontSize: 14
+                              }
+                          }
+                      },
+                      data: [{
+                          coord: myRegression3.points[myRegression3.points.length - 1]
                       }]
                   }
               },
 
               {
-                  name: '实际',
+                  name: '修正值',
                   type: 'line',
                   showSymbol: false,
                   smooth: true,
