@@ -88,9 +88,10 @@
 
 <script id="item-dom-template" type="x-tmpl-mustache">
     <h2>{{galleryTitle}}</h2>
-      <div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+      <!--div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery"-->
+      <div class="my-gallery" itemscope itemtype="">
         {{#figures}}
-        <figure itemprop="associatedMedia" itemscope itemtype22="http://schema.org/ImageObject">
+        <figure itemprop="associatedMedia" itemscope itemtype="">
           <a href="{{image}}" itemprop="contentUrl" data-size="{{width}}x{{height}}">
               <img src="{{imgThumb}}" itemprop="thumbnail" alt="Image description" />
           </a>
