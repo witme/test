@@ -28,7 +28,7 @@
               [1, 2.84],
               [2, 2.7],
               [3, 2.5],
-              [4, 3.0],
+              [4.5, 3.0],
               [5, 4.4],
               [6, 5.2],
               [7, 6.5],
@@ -38,12 +38,45 @@
               [11, 8.2],
 
           ];
+          var data2 = [
+              [1.5, 1.84],
+              [2.5, 2.7],
+              [3.6, 3.5],
+              [4.5, 4.0],
+              [5.4, 4.4],
+              [6.3, 4.2],
+              [7.5, 6.5],
+              [8.5, 6.3],
+              [9.5, 7.2],
+              [10.5, 7.9],
+              [11, 9.2],
+
+          ];
 
           // See https://github.com/ecomfe/echarts-stat
           var myRegression = ecStat.regression('exponential', data); //linear,polynomial,exponential
 
+
           myRegression.points.sort(function(a, b) {
               return a[0] - b[0];
+          });
+
+
+
+          myRegression.expression = ""; //右上角不展示
+          myRegression.points.forEach(function(idx, item) {
+            idx[1] = idx[1].toFixed(2);
+          });
+
+
+          var myRegression2 = ecStat.regression('exponential', data2); //linear,polynomial,exponential
+          myRegression2.points.sort(function(a, b) {
+              return a[0] - b[0];
+          });
+
+          myRegression2.expression = ""; //右上角不展示
+          myRegression2.points.forEach(function(idx, item) {
+            idx[1] = idx[1].toFixed(2);
           });
 
           option = {
@@ -77,7 +110,7 @@
                   }
               },
               series: [{
-                  name: 'scatter',
+                  name: '体重',
                   type: 'scatter',
                   label: {
                       emphasis: {
@@ -90,8 +123,39 @@
                       }
                   },
                   data: data
-              }, {
-                  name: 'line',
+              },
+
+              {
+                  name: '实际2',
+                  type: 'line',
+                  showSymbol: false,
+                  smooth: true,
+                  data: myRegression2.points,
+                  markPoint: {
+                      itemStyle: {
+                          normal: {
+                              color: 'transparent'
+                          }
+                      },
+                      label: {
+                          normal: {
+                              show: true,
+                              position: 'left',
+                              formatter: myRegression2.expression,
+                              textStyle: {
+                                  color: '#555',
+                                  fontSize: 14
+                              }
+                          }
+                      },
+                      data: [{
+                          coord: myRegression2.points[myRegression.points.length - 1]
+                      }]
+                  }
+              },
+
+              {
+                  name: '实际',
                   type: 'line',
                   showSymbol: false,
                   smooth: true,
