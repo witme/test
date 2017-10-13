@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+ 	<meta charset="utf-8">
+  	<meta name="description" content="">
+	<meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+	<title>臭宝宝时光</title>
+	<link rel="stylesheet" href="css/main.css">
+  <!--绘图工具-->
+  <script src="js/Chart.min.js"></script>
+  <script src="js/zepto-79af904615.js"></script>
+</head>
+<body>
+<canvas id="main" ></canvas>
+<script type="text/javascript">
+        $(function() {
+          $('#main').css( {
+            width: $(window).width(),
+            height: $(window).width(),
+          });
+
+            window.chartColors = {
+            	red: 'rgb(255, 99, 132)',
+            	orange: 'rgb(255, 159, 64)',
+            	yellow: 'rgb(255, 205, 86)',
+            	green: 'rgb(75, 192, 192)',
+            	blue: 'rgb(54, 162, 235)',
+            	purple: 'rgb(153, 102, 255)',
+            	grey: 'rgb(201, 203, 207)'
+            };
+            var config = {
+              type: 'line',
+              data: {
+                  labels: ["0","1","2","3","4","5","6","7","8","9","10","11","12"],
+                  datasets: [{
+                      label: "测量",
+                      fill: false,
+                      backgroundColor: window.chartColors.purple,
+                      borderColor: window.chartColors.purple,
+                      borderWidth: 3,
+                      data: [ //测量
+                            2.8,3.6,4.4,5.2,5.8,6.3,6.8,7.2,7.3
+                      ],
+                  },
+                      {
+                      label: "上限",
+                      fill: false,
+                      backgroundColor: window.chartColors.blue,
+                      borderColor: window.chartColors.blue,
+                      //borderDash: [3, 3],
+                      borderWidth: 2,
+                      data: [ //上限
+                            4.2,5.5,6.6,7.5,8.2,8.8,9.3,9.8,10.2,10.5,10.9,11.2,11.5,11.8,12.1,
+                      ],
+                  }, {
+                      label: "下限",
+                      fill: false,
+                      backgroundColor: window.chartColors.green,
+                      borderColor: window.chartColors.green,
+                      borderWidth: 2,
+                      //borderDash: [3, 3],
+                      data: [ //下限
+                              2.4,3.2,3.9,4.5,5,5.4,5.7,6,6.3,6.5,6.7,6.9,7,7.2,7.4,],
+                  }, {
+                      label: "平均",
+                      backgroundColor: window.chartColors.red,
+                      borderColor: window.chartColors.red,
+                      borderWidth: 2,
+                      borderDash: [3, 3],
+                      data: [ //平均
+                              3.2322,4.1873,5.1282,5.8458,6.4237,6.8985,7.297,7.6422,7.9487,8.2254,8.48,8.7192,8.9481,9.1699,9.387,
+                      ],
+                      fill: false,
+                  }]
+              },
+              options: {
+                  responsive: true,
+                  title:{
+                      display:true,
+                      text:'宝宝体重曲线'
+                  },
+                  tooltips: {
+                      mode: 'index',
+                      intersect: false,
+                  },
+                  hover: {
+                      mode: 'nearest',
+                      intersect: true
+                  },
+                  scales: {
+                      xAxes: [{
+                          display: true,
+                          scaleLabel: {
+                              display: true,
+                              labelString: '月份'
+                          }
+                      }],
+                      yAxes: [{
+                          display: true,
+                          scaleLabel: {
+                              display: true,
+                              labelString: '体重 / KG'
+                          }
+                      }]
+                  }
+              }
+          };
+
+          //Get the context of the canvas element we want to select
+          var ctx = document.getElementById("main").getContext("2d");
+          window.myLine = new Chart(ctx, config);
+
+          /*var myNewChart = new Chart(ctx, {
+              data: datas,
+          });*/
+
+      /*var myChart = Chart.Line(ctx, {
+        data: datas,
+        options: {
+          elements:{
+            line: {
+              tension: 0
+            }
+          }
+        }
+
+      });*/
+
+
+        });
+
+
+</script>
+
+<script src="js/lib/BDStatistics.js"></script>
+
+</body>
+</html>

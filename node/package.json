@@ -6,6 +6,7 @@
   "author": "wit.luo",
   "license": "ISC",
   "dependencies": {
+    "chart.js": "^2.7.0",
     "echarts": "^3.7.2",
     "echarts-stat": "^1.1.0",
     "formidable": "^1.1.1",
