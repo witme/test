@@ -1,4 +1,4 @@
-window.data = window.data || [];
+window.Gallerys = window.Gallerys || []; //每一个元素表示一个相册
 
 var imgs = [
     "upload_03b86bc5390b1ed65a6778d06713674e_normal.jpg",  
@@ -50,7 +50,7 @@ var imgs = [
     "upload_fc87fb83042a2413f8efc355d4d61dba_normal.jpg"];
     
     var gallery = {
-        galleryTitle : '全部相册',
+        galleryTitle : '全部相册', //相册名
         figures: []
     };
     
@@ -68,4 +68,4 @@ var imgs = [
         
     }
     
-window.data.push(gallery);
+window.Gallerys.push(gallery);

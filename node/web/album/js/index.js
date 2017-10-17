@@ -19,10 +19,10 @@ $(function(){
     var item = $('#item-dom-template').html();
     var content = "";
    
-    for(var k=0; k<data.length; k++){
+    for(var k=0; k<Gallerys.length; k++){
         var tmp = Mustache.render(item, {
-            galleryTitle: data[k].galleryTitle,
-            figures: getFigures( data[k].figures),
+            galleryTitle: Gallerys[k].galleryTitle,
+            figures: getFigures( Gallerys[k].figures),
             
         });
         content += tmp;        
