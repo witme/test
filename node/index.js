@@ -1,3 +1,6 @@
+
+//用于上传文件并以hash为文件名,保存到/home/data/pics/2017/
+
 "use strict"
 let express = require('express');
 let api = require('./modules/api.js');
@@ -21,6 +24,7 @@ app.use(function(req,res,next){
 //路由
 app.post('/uploadImg', api.uploadImg);
 app.get('/test', api.test);
+app.get('/getGallery', api.test);
 
 app.listen(process.env.PORT || config.port, function (req, res) {
 

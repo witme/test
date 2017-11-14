@@ -74,7 +74,7 @@ function uploadImg(req, res) {
 					let newPath = DEST_FOLDER + tmpName;
 
 					//console.log("fileFullName %s\t, fileName %\t, newPath %s\r\n", fileFullName, tmpName, newPath);
-console.log(fileFullName, newPath);
+					console.log(fileFullName, newPath);
           fs.renameSync(fileFullName, newPath);
 		});
 
