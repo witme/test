@@ -8,8 +8,8 @@ $(function(){
                 imgThumb: item.imgThumb,
                 image: item.image,
                 caption: item.caption,
-                width: 1024,
-                height: 768,
+                width: item.width,
+                height: item.height,
             })
         }
         
@@ -21,7 +21,7 @@ $(function(){
         var item = $('#item-dom-template').html();
         var content = "";
        
-        var Gallerys = data;
+        var Gallerys = data.data;
         for(var k=0; k<Gallerys.length; k++){
             var tmp = Mustache.render(item, {
                 galleryTitle: Gallerys[k].galleryTitle,
@@ -39,18 +39,18 @@ $(function(){
     function ajaxGallery(){
 
         $.ajax({
-            type: "json",
-            url: "./getGallery",
+            dataType: "json",
+            url: "/getGallery",
             success: function(rsp){
                 if(rsp.code != 200){
                     console.log("出错");
                     return;
                 }
                 fillGallery(rsp);
-alert("ok");
+
             },
             error: function(){
-alert("err");
+                alert("err");
             }
         });
     }

@@ -6,18 +6,18 @@ var fl = require("./modules/photo-info/file-list");
 var thumb = require("./modules/photo-thumb/thumb");
 
 //var SRC = '/Users/wit.luo/Pictures/photo/';
-var SRC =  require("path").join(__dirname , '../photo/');
-var DST = require("path").join( SRC , './thumb/');
+var SRC =  require("path").join(__dirname , '2017');
+//var DST = require("path").join( SRC , './thumb/');
 
 console.log(SRC);
-console.log(DST);
+//console.log(DST);
 var filelist = fl.getList(SRC);
-
+console.log(filelist);
 filelist.map( path=>{
 		//缩略图
-		thumb(path, SRC + 'thumb/', 320, 320, '_thumb');
+		thumb(path, SRC + '/thumb/', 320, 320, '_thumb');
 		//正常图
-		thumb(path, SRC + 'images/', 1024, 1024, '_normal');
+		thumb(path, SRC + '/images/', 1024, 1024, '_normal');
 });
 
 

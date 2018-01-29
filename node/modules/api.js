@@ -100,7 +100,6 @@ function uploadImg(req, res) {
 	});
 }
 
-
 api.test = function test(req,res,next) {
 	res.send('req');
 	next();

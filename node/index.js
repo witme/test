@@ -4,6 +4,7 @@
 "use strict"
 let express = require('express');
 let api = require('./modules/api.js');
+let getGallery = require('./modules/api.getGallery.js');
 var config = {
 	port: 8081
 	//port:80
@@ -24,7 +25,7 @@ app.use(function(req,res,next){
 //路由
 app.post('/uploadImg', api.uploadImg);
 app.get('/test', api.test);
-app.get('/getGallery', api.test);
+app.get('/getGallery', getGallery);
 
 app.listen(process.env.PORT || config.port, function (req, res) {
 
