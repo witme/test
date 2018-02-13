@@ -40,7 +40,7 @@ $(function(){
 
         $.ajax({
             dataType: "json",
-            url: "/getGallery",
+            url: "/forward/getGallery",
             success: function(rsp){
                 if(rsp.code != 200){
                     console.log("出错");
